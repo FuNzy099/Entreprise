@@ -24,6 +24,7 @@ class EntrepriseRepository extends ServiceEntityRepository
 
 
     // todo ------- Public function pour ajouter une entreprise
+    // ! je suis un commentaire nul
 
     public function add(Entreprise $entity, bool $flush = false): void
     {
