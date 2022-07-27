@@ -51,7 +51,6 @@ class Employe
 
 
     // todo ------- ID
-    // !vefjdkbvir
 
     public function getId(): ?int
     {
@@ -105,7 +104,19 @@ class Employe
 
         return $this;
     }
+    
 
+
+    // todo ------- age
+
+    public function getAge()
+    {
+
+        $now = new \DateTime();
+        $interval = date_diff($this -> dateNaissance, $now);
+        return $interval -> format("%Y");
+
+    }
 
 
     // todo ------- dateEmbauche
@@ -152,5 +163,14 @@ class Employe
         $this->entreprise = $entreprise;
 
         return $this;
+    }
+
+
+
+    // todo ------- tostring
+
+    public function __toString()
+    {
+        return $this -> prenom." ".$this -> nom;
     }
 }

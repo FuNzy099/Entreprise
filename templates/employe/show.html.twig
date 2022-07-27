@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un employé{% endblock %}
+
+{% block body %}
+
+    {# la variable envoye vient de la funtion show qui ce trouve dans EmployeController#}
+    <h1> {{ employe }}</h1> 
+
+    <p>
+        Ville:  {{ employe.ville }} <br>
+        Entreprise: <a href="{{ path('show_entreprise', {'id': employe.entreprise.id})}}"> {{ employe.entreprise }} </a> <br>
+        {# Pour formater une date j'ai utilisé un filtre de twig(date) DOC: https://twig.symfony.com/doc/3.x/filters/date.html #}
+        Date d'embauche: {{ employe.dateEmbauche | date("d/m/Y") }} <br>
+        Date de naissance: {{ employe.dateNaissance | date("d/m/Y") }} ({{ employe.age }}) ans <br>
+    </p>
+
+
+ 
+{% endblock %}

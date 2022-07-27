@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un entreprise{% endblock %}
+
+{% block body %}
+
+    {# la variable entreprise vient de la funtion show qui ce trouve dans EntrepriseController#}
+    <h1> {{ entreprise }}</h1> 
+
+    <p>
+        SIRET : {{ entreprise.siret }} <br>
+        Date de création : {{ entreprise.dateCreation | date("d/m/Y") }} <br>
+        Adresse : {{ entreprise.fullAdress }}
+    </p>
+
+    <h2> Liste des employés</h2>
+
+    {# Si la collection d'employé est == 0 on affiche un message "pas d'employé"
+    Pour ce faire j'ai utilisé un filtre de twig(length) DOC: https://twig.symfony.com/doc/3.x/filters/length.html #}
+    {% if entreprise.employes | length == 0 %}
+
+        <p>Pas d'employés dans cette entreprise</p>
+
+        {% else %}
+
+            {% for employe in entreprise.employes %}
+                <a href="{{ path('show_employe', {'id': employe.id})}}">{{ employe }} </a> <br>
+            {% endfor %}
+
+    {% endif %}
+
+
+
+ 
+{% endblock %}

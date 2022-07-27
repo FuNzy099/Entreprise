@@ -45,9 +45,14 @@ class Entreprise
     private $ville;
 
     /**
-     * @ORM\OneToMany(targetEntity=employe::class, mappedBy="entreprise", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Employe::class, mappedBy="entreprise", orphanRemoval=true)
      */
     private $employes;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $siret;
 
     public function __construct()
     {
@@ -57,7 +62,6 @@ class Entreprise
 
 
     // todo ------- ID
-
 
     public function getId(): ?int
     {
@@ -144,6 +148,10 @@ class Entreprise
         return $this;
     }
 
+
+
+    // todo ------- Employe
+
     /**
      * @return Collection<int, employe>
      */
@@ -170,6 +178,34 @@ class Entreprise
                 $employe->setEntreprise(null);
             }
         }
+
+        return $this;
+    }
+
+
+    // todo ------- Adresse complette
+
+    public function getFullAdress()
+    {
+        return $this -> adresse." ".$this -> cp." ".$this -> ville;
+    }
+
+
+    // todo ------- ToString
+
+    public function __toString()
+    {
+        return $this -> raisonSociale;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(string $siret): self
+    {
+        $this->siret = $siret;
 
         return $this;
     }
