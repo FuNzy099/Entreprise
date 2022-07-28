@@ -5,9 +5,13 @@
 {% block body %}
     <h1>Liste des employés</h1>
 
+    <a href="{{ path('add_employe') }}" class="btn btn-primary">Ajouter un employé</a> <br>
+
     {% for employe in employes %}
  
-        <a href="{{ path('show_employe', {'id': employe.id}) }}">{{ employe }}</a><br>
+        <a href="{{ path('show_employe', {'idEmploye': employe.id}) }}">{{ employe }}</a>
+        <a href="{{ path('edit_employe', {'idEmploye': employe.id}) }}" class="btn btn-warning"> Editer </a>
+        <a href="{{ path('delete_employe', {'idEmploye': employe.id}) }}" class="btn btn-danger"> Delete </a> <br>
 
     {% endfor %}
  

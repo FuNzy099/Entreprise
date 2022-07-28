@@ -9,3 +9,8 @@ h1{
 h2{
     color: blue;
 }
+
+.nomPrenom{
+    display: flex;
+    gap: 20px;
+}

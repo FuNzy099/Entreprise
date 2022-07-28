@@ -4,7 +4,17 @@
 
 {% block body %}
 
-    <h1>Ajouter une entreprise</h1>
+    {# edit viens de EntrepriseController dans la function add au niveau du return
+       il nous permet de voir si l'entreprise hesiste, si c'est le cas on affiche "editer une entreprise" sinon "ajouter une entreprise" #}
+    {% if edit %}
+
+        <h1>Editer une entreprise</h1>
+
+    {% else %}
+
+        <h1>Ajouter une entreprise</h1>
+
+    {% endif %}
 
     {{ form(formAddEntreprise) }}
 

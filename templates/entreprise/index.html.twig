@@ -11,7 +11,9 @@
     {# Les doubles accolades => {{ }} c'est le echo d'un fichier twig #}
     {% for entreprise in entreprises %}
    
-        <a href="{{ path('show_entreprise', {'id': entreprise.id}) }}"> {{ entreprise }} </a> <br>
+        <a href="{{ path('show_entreprise', {'idEntreprise': entreprise.id}) }}"> {{ entreprise }} </a> 
+        <a href="{{ path('edit_entreprise', {'idEntreprise': entreprise.id}) }}" class="btn btn-warning"> Editer </a>
+        <a href="{{ path('delete_entreprise', {'idEntreprise': entreprise.id}) }}" class="btn btn-danger"> Delete </a> <br> <br>
 
     {% endfor %}
 

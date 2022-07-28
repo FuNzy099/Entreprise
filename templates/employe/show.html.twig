@@ -9,7 +9,7 @@
 
     <p>
         Ville:  {{ employe.ville }} <br>
-        Entreprise: <a href="{{ path('show_entreprise', {'id': employe.entreprise.id})}}"> {{ employe.entreprise }} </a> <br>
+        Entreprise: <a href="{{ path('show_entreprise', {'idEntreprise': employe.entreprise.id})}}"> {{ employe.entreprise }} </a> <br>
         {# Pour formater une date j'ai utilisé un filtre de twig(date) DOC: https://twig.symfony.com/doc/3.x/filters/date.html #}
         Date d'embauche: {{ employe.dateEmbauche | date("d/m/Y") }} <br>
         Date de naissance: {{ employe.dateNaissance | date("d/m/Y") }} ({{ employe.age }}) ans <br>

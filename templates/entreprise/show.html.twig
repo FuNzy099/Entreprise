@@ -24,7 +24,7 @@
         {% else %}
 
             {% for employe in entreprise.employes %}
-                <a href="{{ path('show_employe', {'id': employe.id})}}">{{ employe }} </a> <br>
+                <a href="{{ path('show_employe', {'idEmploye': employe.id})}}">{{ employe }} </a> <br>
             {% endfor %}
 
     {% endif %}

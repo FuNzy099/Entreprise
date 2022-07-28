@@ -6,10 +6,11 @@ namespace App\Controller;
 use App\Entity\Entreprise;
 use App\Form\EntrepriseType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class EntrepriseController extends AbstractController
 {
@@ -33,13 +34,20 @@ class EntrepriseController extends AbstractController
 
 
 
-    // todo ------- Public function
+    // todo ------- Public function pour ajouter une entreprise
 
     /**
      * @Route("/entreprise/add", name="add_entreprise")
+     * @Route("/entreprise/{idEntreprise}/edit", name="edit_entreprise")
+     * @ParamConverter("entreprise", options={"mapping": {"idEntreprise": "id"}})
      */
     public function add(ManagerRegistry $doctrine, Entreprise $entreprise = null, Request $request): response
     {
+
+        if(!$entreprise) {
+            $entreprise = new Entreprise();
+        }
+
         // Permet de construire un formulaire en ce reposant sur le builder de EntrepriseType
         $form = $this -> createForm(EntrepriseType::class, $entreprise);
         $form -> handleRequest($request);
@@ -62,7 +70,10 @@ class EntrepriseController extends AbstractController
         // Permet d'afficher le formulaire d'ajout d'une entreprise dans la vue
         return $this->render('entreprise/add.html.twig', [
 
-           'formAddEntreprise' => $form -> createView()
+           'formAddEntreprise' => $form -> createView(),
+           
+            // on verifie si l'entreprise hesiste, cela nous permettra d'utiliser edit dans add.html.twig de entreprise dans le but de conditionner le h1
+           'edit' => $entreprise -> getId() 
         
         ]);
 
@@ -70,10 +81,30 @@ class EntrepriseController extends AbstractController
 
 
 
-   // todo ------- Public function qui permet d'afficher le detail des informations d'une entreprise
+    // todo ------- Public function pour supprimer une entreprise
 
     /**
-     * @Route("/entreprise/{id}", name="show_entreprise")
+     * @Route("/entreprise/{idEntreprise}/delete", name="delete_entreprise")
+     * @ParamConverter("entreprise", options={"mapping": {"idEntreprise": "id"}})
+     */
+    public function delete(ManagerRegistry $doctrine, entreprise $entreprise): response 
+    {
+
+        $entityManager = $doctrine -> getManager();
+        $entityManager -> remove($entreprise);
+        $entityManager -> flush();
+
+        return $this -> redirectToRoute('app_entreprise');
+
+    }
+
+
+
+    // todo ------- Public function qui permet d'afficher le detail des informations d'une entreprise
+
+    /**
+     * @Route("/entreprise/{idEntreprise}", name="show_entreprise")
+     * @ParamConverter("entreprise", options={"mapping": {"idEntreprise": "id"}})
      */
     public function show(Entreprise $entreprise): Response
     {
